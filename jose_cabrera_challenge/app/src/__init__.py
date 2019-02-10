@@ -26,7 +26,7 @@ db = SQLAlchemy(app)
 def create_app():
 
     db.init_app(app)
-    
+
     from .routes.products import products as product_blueprint
     app.register_blueprint(product_blueprint)
 
@@ -35,6 +35,9 @@ def create_app():
 
     from .routes.purchases import purchases as purchase_blueprint
     app.register_blueprint(purchase_blueprint)
+
+    from .routes.translator import translator as translator_blueprint
+    app.register_blueprint(translator_blueprint)
 
     dbstatus = False
     while dbstatus == False:
