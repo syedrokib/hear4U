@@ -6,7 +6,7 @@ from src.handlers.translator import translateAudioFile
 @translator.route('/translator', methods=['POST'])
 def translate():
     if 'file' not in request.files:
-        return Respone(json.dumps("Bad Request missing key"), status=400, mimetype='application/json')
+        return Response(json.dumps("Bad Request missing key"), status=400, mimetype='application/json')
 
     file = request.files['file']
 
