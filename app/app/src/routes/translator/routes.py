@@ -5,17 +5,27 @@ from src.handlers.translator import translateAudioFile
 
 @translator.route('/translator', methods=['POST'])
 def translate():
-    if 'file' not in request.files:
-        return Response(json.dumps("Bad Request missing key"), status=400, mimetype='application/json')
+    # if 'file' not in request.files:
+    #     return Response(json.dumps("Bad Request missing key"), status=400, mimetype='application/json')
+    #
+    # file = request.files['file']
+    #
+    # if file.filename == '':
+    #     return Response(json.dumps("Bad Request"), status=400, mimetype='application/json')
+    # else:
 
-    file = request.files['file']
+    payload = str(request.get_json()['payload'])
+    print(payload)
+    #
+    # fileContent = translateAudioFile(file)
+    # file.close()
 
-    if file.filename == '':
-        return Respone(json.dumps("Bad Request"), status=400, mimetype='application/json')
-    else:
-        fileContent = translateAudioFile(file)
-        file.close()
-    return Response(json.dumps({"Content": str(fileContent)}), status=200, mimetype='application/json' )
+
+    return Response(json.dumps({"Content" : payload}), status=200, mimetype='application/json')
+
+
+
+# return Response(json.dumps({"Content": str(fileContent)}), status=200, mimetype='application/json' )
 
 
     # cartId = str(request.get_json()['cartId'])
