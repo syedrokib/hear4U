@@ -22,7 +22,7 @@ def translate():
     # payload_binary = int(payload, base=2)
 
 
-    print(payload_binary)
+    #print(payload_binary)
 
     with open("Output.m4a", "wb") as fh:
         fh.write(base64.decodebytes(payload_binary))

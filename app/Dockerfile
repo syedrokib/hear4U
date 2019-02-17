@@ -19,7 +19,7 @@ RUN apk add --no-cache postgresql-dev gcc python3 python3-dev musl-dev flac ffmp
     pip install ffprobe && \
     pip install paho-mqtt pyaudio
 
-# ADD ./app /home/app/
+ADD ./app /home/app/
 # WORKDIR /home/app/
 
 EXPOSE 5000
