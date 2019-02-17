@@ -4,7 +4,7 @@ FROM alpine:3.7
 ADD requirements.txt /home/app/
 WORKDIR /home/app/
 
-RUN apk add --no-cache postgresql-dev gcc python3 python3-dev musl-dev flac \
+RUN apk add --no-cache postgresql-dev gcc python3 python3-dev musl-dev flac ffmpeg \
     py-pip portaudio-dev && \
     python3 -m ensurepip && \
     rm -r /usr/lib/python*/ensurepip && \
@@ -14,6 +14,9 @@ RUN apk add --no-cache postgresql-dev gcc python3 python3-dev musl-dev flac \
     pip install flask-expects-json && \
     pip install SpeechRecognition && \
     pip install -U pip && \
+    pip install pydub && \
+    pip install ffmpeg && \
+    pip install ffprobe && \
     pip install paho-mqtt pyaudio
 
 # ADD ./app /home/app/

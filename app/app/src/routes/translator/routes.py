@@ -2,6 +2,8 @@ import json
 from . import translator
 from flask import Flask, redirect, request, Response
 from src.handlers.translator import translateAudioFile
+import base64
+from pydub import AudioSegment
 
 @translator.route('/translator', methods=['POST'])
 def translate():
@@ -14,14 +16,50 @@ def translate():
     #     return Response(json.dumps("Bad Request"), status=400, mimetype='application/json')
     # else:
 
-    payload = str(request.get_json()['payload'])
-    print(payload)
+    payload = request.get_json()['payload']
+    payload_binary = payload.encode()
+
+    # payload_binary = int(payload, base=2)
+
+
+    print(payload_binary)
+
+    with open("Output.m4a", "wb") as fh:
+        fh.write(base64.decodebytes(payload_binary))
+
+#file is ready
+
+
+    track = AudioSegment.from_file("Output.m4a")
+    track.export("Output.wav", format='wav')
+
+    #now in wav
+
+    # decodedPayload = base64.b64decode(payload)
+
+    # print(decodedPayload)
     #
-    # fileContent = translateAudioFile(file)
-    # file.close()
+    # # print("mo bamba")
+    # sound_file = open("Output.wav", "r")
+    converted = translateAudioFile("Output.wav")
+    print(converted)
+    # sound_file.close()
+
+    # # print("kyrie")
+    # sound_file.write("%s" % decodedPayload)
+    # sound_file.close()
 
 
-    return Response(json.dumps({"Content" : payload}), status=200, mimetype='application/json')
+
+    # sound_file.close()
+    # #
+    # print(retVal)
+    #
+    # print("lorenzo brown")
+
+
+
+    return Response(json.dumps({"Content" : converted}), status=200, mimetype='application/json')
 
 
 
